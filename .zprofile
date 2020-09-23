@@ -10,7 +10,7 @@ PATH="/Users/fireplacetv/anaconda/bin:$PATH"
 #   . $(brew --prefix)/etc/bash_completion
 # fi
 
-alias glog='git log --oneline -n 10'
+alias glog='git log --format="%C(yellow)%h %C(auto)%d %s %C(green)%an %C(yellow)%ar" -n 10'
 
 alias jp='jupyter notebook'
 alias jl='jupyter lab'
