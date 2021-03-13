@@ -19,3 +19,5 @@ set autoindent
 " remove syntax highlighting and set files to not modifiable for compile dbt sql
 au BufNewFile,BufRead */target/*.sql set noma ft=text
 
+" use global clipboard
+set clipboard=unnamed
