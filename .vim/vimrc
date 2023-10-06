@@ -1,6 +1,6 @@
 " Display
 syntax on
-set number
+set relativenumber
 set hlsearch
 set statusline=%F\ %=%Y\ (%l,%c)
 set laststatus=2
@@ -11,9 +11,9 @@ set path+=**
 set wildmenu
 
 " Tabbing
-set softtabstop=2
+set softtabstop=4
 set expandtab
-set shiftwidth=2
+set shiftwidth=4
 set autoindent
 
 " remove syntax highlighting and set files to not modifiable for compile dbt sql
@@ -21,3 +21,7 @@ au BufNewFile,BufRead */target/*.sql set noma ft=text
 
 " use global clipboard
 set clipboard=unnamed
+
+" folding
+set foldmethod=marker
+set foldmarker=(,)
