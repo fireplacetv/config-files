@@ -1,6 +1,6 @@
 " Display
 syntax on
-set relativenumber
+set number relativenumber
 set hlsearch
 set statusline=%F\ %=%Y\ (%l,%c)
 set laststatus=2
