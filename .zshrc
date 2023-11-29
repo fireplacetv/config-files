@@ -1,8 +1,13 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$PATH:/usr/local/bin:$HOME/bin:$HOME/anaconda3/bin
+export PATH=$PATH:/usr/local/bin:$HOME/bin:$HOME/anaconda3/bin:$HOME/google-cloud-sdk/bin
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/derricklow/.oh-my-zsh"
+
+# 
+ZSH_DISABLE_COMPFIX="true"
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -68,7 +73,7 @@ ZSH_THEME="fireplacetv"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,6 +104,35 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # git folder shortcuts
-alias dbtbq='cd ~/git/getaround-analytics/dbt-bq'
-alias looker='cd ~/git/getaround-looker'
+alias dbtna='\
+  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
+  source ~/pip/dbt-na/bin/activate && \
+  cd ~/git/getaround-analytics/dbt-bq \
+'
+alias dbtgp='\
+  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
+  source ~/pip/dbt-gp/bin/activate && \
+  cd ~/git/dbt-pipelines \
+'
+alias findbt='\
+  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
+  source ~/pip/dbt-na/bin/activate && \
+  cd ~/git/getaround-financial-reporting/dbt-bq \
+'
+alias air='cd ~/git/getaround-airflow'
+alias lkml='cd ~/git/getaround-looker'
 
+# ALIASES
+## git/github
+# zsh git plugin has its own glog, no need for this one
+alias glog1='git log -n 12 --format="%C(yellow)%h%C(auto)%d %s %C(green)%an %C(yellow)%ar"'
+alias github="
+  git remote -v | \
+  grep push | \
+  grep -Eo 'github.com:.*\s' | \
+  sed 's/:/\//g; s/^/https\:\/\//g;' | \
+  xargs open \
+"
+
+## jupyter
+alias jl='jupyter lab'
