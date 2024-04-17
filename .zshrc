@@ -105,17 +105,23 @@ source $ZSH/oh-my-zsh.sh
 
 # git folder shortcuts
 alias dbtna='\
-  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
   source ~/pip/dbt-na/bin/activate && \
   cd ~/git/getaround-analytics/dbt-bq \
 '
 alias dbtgp='\
-  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
-  source ~/pip/dbt-gp/bin/activate && \
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
+  source ~/pip/dbt-gp/bin/activate > /dev/null && \
   cd ~/git/dbt-pipelines \
 '
 alias findbt='\
-  if whence -w deactivate | grep function > /dev/null; then deactivate; fi && \
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
   source ~/pip/dbt-na/bin/activate && \
   cd ~/git/getaround-financial-reporting/dbt-bq \
 '
