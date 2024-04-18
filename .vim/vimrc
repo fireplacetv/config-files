@@ -12,16 +12,26 @@ set wildmenu
 
 " Tabbing
 set softtabstop=4
-set expandtab
+set tabstop=4
 set shiftwidth=4
 set autoindent
-
-" remove syntax highlighting and set files to not modifiable for compile dbt sql
-au BufNewFile,BufRead */target/*.sql set noma ft=text
 
 " use global clipboard
 set clipboard=unnamed
 
 " folding
-set foldmethod=marker
-set foldmarker=(,)
+
+" custom settings for dbt-releases/
+au BufNewFile,BufRead */dbt-releases/*.yml set expandtab
+au BufNewFile,BufRead */dbt-releases/*.sql set foldmarker=(,)
+au BufNewFile,BufRead */dbt-releases/*.sql set foldmethod=marker
+au BufNewFile,BufRead */dbt-releases/*.sql set noexpandtab
+au BufNewFile,BufRead */dbt-releases/target/* set foldmethod=manual
+
+" custom settings for getaround-analytics/dbt-bq
+au BufNewFile,BufRead */getaround-analytics/dbt-bq/*.sql set foldmarker=(,)
+au BufNewFile,BufRead */getaround-analytics/dbt-bq/*.sql set foldmethod=marker
+au BufNewFile,BufRead */getaround-analytics/dbt-bq/* set expandtab
+au BufNewFile,BufRead */getaround-analytics/dbt-bq/target/* set foldmethod=manual
+
+source $HOME/.vim/config/dbt.vimrc
