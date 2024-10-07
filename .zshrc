@@ -5,7 +5,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/derricklow/.oh-my-zsh"
 
-# 
+#
 ZSH_DISABLE_COMPFIX="true"
 
 
@@ -109,14 +109,18 @@ alias dbtna='\
     deactivate; \
   fi && \
   source ~/pip/dbt-na/bin/activate && \
-  cd ~/git/getaround-analytics/dbt-bq \
+  cd ~/git/getaround-analytics/dbt-bq && \
+  which dbt && \
+  dbt --version
 '
 alias dbtgp='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
   fi && \
   source ~/pip/dbt-gp/bin/activate > /dev/null && \
-  cd ~/git/dbt-pipelines \
+  cd ~/git/dbt-pipelines && \
+  which dbt && \
+  dbt --version
 '
 alias findbt='\
   if whence -w deactivate | grep function > /dev/null; then \
@@ -124,6 +128,17 @@ alias findbt='\
   fi && \
   source ~/pip/dbt-na/bin/activate && \
   cd ~/git/getaround-financial-reporting/dbt-bq \
+  which dbt && \
+  dbt --version
+'
+alias dbtstripe='\
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
+  source ~/pip/dbt-stripe/bin/activate && \
+  cd ~/git/getaround-financial-reporting/dbt-bq-stripe && \
+  which dbt && \
+  dbt --version
 '
 alias air='cd ~/git/getaround-airflow'
 alias lkml='cd ~/git/getaround-looker'
