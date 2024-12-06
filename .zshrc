@@ -110,8 +110,8 @@ alias dbtna='\
   fi && \
   source ~/pip/dbt-na/bin/activate && \
   cd ~/git/getaround-analytics/dbt-bq && \
-  which dbt && \
-  dbt --version
+  dbt --version && \
+  which dbt
 '
 alias dbtgp='\
   if whence -w deactivate | grep function > /dev/null; then \
@@ -119,8 +119,7 @@ alias dbtgp='\
   fi && \
   source ~/pip/dbt-gp/bin/activate > /dev/null && \
   cd ~/git/dbt-pipelines && \
-  which dbt && \
-  dbt --version
+  which dbt
 '
 alias findbt='\
   if whence -w deactivate | grep function > /dev/null; then \
@@ -128,8 +127,8 @@ alias findbt='\
   fi && \
   source ~/pip/dbt-na/bin/activate && \
   cd ~/git/getaround-financial-reporting/dbt-bq \
-  which dbt && \
-  dbt --version
+  dbt --version && \
+  which dbt
 '
 alias dbtstripe='\
   if whence -w deactivate | grep function > /dev/null; then \
@@ -137,8 +136,8 @@ alias dbtstripe='\
   fi && \
   source ~/pip/dbt-stripe/bin/activate && \
   cd ~/git/getaround-financial-reporting/dbt-bq-stripe && \
-  which dbt && \
-  dbt --version
+  dbt --version && \
+  which dbt
 '
 alias air='cd ~/git/getaround-airflow'
 alias lkml='cd ~/git/getaround-looker'
