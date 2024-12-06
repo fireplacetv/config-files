@@ -21,18 +21,18 @@ set clipboard=unnamed
 
 " folding
 
-" custom settings for dbt-releases/
-autocmd BufNewFile,BufRead */dbt-releases/*.sql set foldmarker=(,)
-autocmd BufNewFile,BufRead */dbt-releases/*.sql set foldmethod=marker
-autocmd BufNewFile,BufRead */dbt-releases/*.sql set noexpandtab
-autocmd BufNewFile,BufRead */dbt-releases/*.yml set expandtab
-autocmd BufNewFile,BufRead */dbt-releases/*.yml set cursorcolumn
-autocmd BufNewFile,BufRead */dbt-releases/target/* set foldmethod=manual
+" custom settings for dbt-pipelines/
+autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set foldlevel=0 foldmarker=(,) foldmethod=marker
+autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set noexpandtab
+autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set nocursorcolumn
+autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set cursorcolumn
+autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set expandtab
+autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set nostartofline
+autocmd BufNewFile,BufRead */dbt-pipelines/target/* set foldmethod=manual
 
 " custom settings for getaround-analytics/dbt-bq
 autocmd BufNewFile,BufRead */getaround-analytics/dbt-bq/* set expandtab
-autocmd BufNewFile,BufRead */getaround-analytics/dbt-bq/*.sql set foldmarker=(,)
-autocmd BufNewFile,BufRead */getaround-analytics/dbt-bq/*.sql set foldmethod=marker
+autocmd BufNewFile,BufRead */getaround-analytics/dbt-bq/*.sql set foldlevel=0 foldmarker=(,) foldmethod=marker
 autocmd BufNewFile,BufRead */getaround-analytics/dbt-bq/target/* set foldmethod=manual
 
 source $HOME/.vim/config/dbt.vimrc
