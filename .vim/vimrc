@@ -21,13 +21,16 @@ set clipboard=unnamed
 
 " folding
 
+" autocmd reference: https://vimdoc.sourceforge.net/htmldoc/autocmd.html#BufNewFile
+
 " custom settings for dbt-pipelines/
-autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set foldlevel=0 foldmarker=(,) foldmethod=marker
+autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set foldmethod=marker foldmarker=(,) foldlevel=0
 autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set noexpandtab
 autocmd BufNewFile,BufRead */dbt-pipelines/*.sql set nocursorcolumn
 autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set cursorcolumn
 autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set expandtab
 autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set nostartofline
+autocmd BufNewFile,BufRead */dbt-pipelines/*.yml set foldmethod=indent foldlevel=0
 autocmd BufNewFile,BufRead */dbt-pipelines/target/* set foldmethod=manual
 
 " custom settings for getaround-analytics/dbt-bq
