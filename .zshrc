@@ -113,7 +113,15 @@ alias dbtna='\
   dbt --version && \
   which dbt
 '
-alias dbtgp='\
+alias toy-docker='\
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
+  source ~/pip/toy-docker/bin/activate > /dev/null && \
+  cd ~/git/toy-docker 
+  echo toy-docker
+'
+alias dbtgp_='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
   fi && \
@@ -121,7 +129,7 @@ alias dbtgp='\
   cd ~/git/dbt-pipelines && \
   which dbt
 '
-alias findbt='\
+alias findbt_='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
   fi && \
@@ -130,7 +138,7 @@ alias findbt='\
   dbt --version && \
   which dbt
 '
-alias dbtstripe='\
+alias dbtstripe_='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
   fi && \
