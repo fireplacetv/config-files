@@ -9,6 +9,7 @@
 
 # vi
 *~
+*.swp
 
 # General
 *.log

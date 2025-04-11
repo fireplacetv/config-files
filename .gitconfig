@@ -1,6 +1,7 @@
 [user]
-	name = fireplacetv
-	email = derrick.low@getaround.com
+	name = Derrick Low
+	email = derrick@sonic.net
+	defaultBranch = main
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -10,3 +11,6 @@
 	autocorrect = 30
 [core]
 	pager = less -XRF
+	excludesfile = /Users/derricklow/.gitignore_global
+[init]
+	defaultBranch = main
