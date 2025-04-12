@@ -3,7 +3,7 @@ export PATH=$PATH:/usr/local/bin:$HOME/bin:$HOME/anaconda3/bin:$HOME/google-clou
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/derricklow/.oh-my-zsh"
+export ZSH="/Users/fireplacetv/.oh-my-zsh"
 
 #
 ZSH_DISABLE_COMPFIX="true"
