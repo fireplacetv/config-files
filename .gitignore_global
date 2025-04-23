@@ -4,12 +4,21 @@
 # Save to ~/.gitignore_global and apply with
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# Mac files
+# MacOS
 .DS_Store
+
+# Windows
+Thumbs.db
+
+# WebStorm
+.idea/
 
 # vi
 *~
 *.swp
+
+# Virtualenv
+.venv/
 
 # General
 *.log
