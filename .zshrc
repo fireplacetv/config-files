@@ -103,16 +103,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# git folder shortcuts
-alias dbtna='\
-  if whence -w deactivate | grep function > /dev/null; then \
-    deactivate; \
-  fi && \
-  source ~/pip/dbt-na/bin/activate && \
-  cd ~/git/getaround-analytics/dbt-bq && \
-  dbt --version && \
-  which dbt
-'
+# CUSTOM ALIASES
+
+# some tocker project
 alias toy-docker='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
@@ -121,6 +114,8 @@ alias toy-docker='\
   cd ~/git/toy-docker 
   echo toy-docker
 '
+
+# Getaround shortcut to initiate dbt global platform dev env (for reference)
 alias dbtgp_='\
   if whence -w deactivate | grep function > /dev/null; then \
     deactivate; \
@@ -129,38 +124,16 @@ alias dbtgp_='\
   cd ~/git/dbt-pipelines && \
   which dbt
 '
-alias findbt_='\
-  if whence -w deactivate | grep function > /dev/null; then \
-    deactivate; \
-  fi && \
-  source ~/pip/dbt-na/bin/activate && \
-  cd ~/git/getaround-financial-reporting/dbt-bq \
-  dbt --version && \
-  which dbt
-'
-alias dbtstripe_='\
-  if whence -w deactivate | grep function > /dev/null; then \
-    deactivate; \
-  fi && \
-  source ~/pip/dbt-stripe/bin/activate && \
-  cd ~/git/getaround-financial-reporting/dbt-bq-stripe && \
-  dbt --version && \
-  which dbt
-'
-alias air='cd ~/git/getaround-airflow'
-alias lkml='cd ~/git/getaround-looker'
 
-# ALIASES
-## git/github
 # zsh git plugin has its own glog, no need for this one
 alias glog1='git log -n 12 --format="%C(yellow)%h%C(auto)%d %s %C(green)%an %C(yellow)%ar"'
+
+# Open Github to whatever the current repo is
 alias github="
   git remote -v | \
   grep push | \
-  grep -Eo 'github.com:.*\s' | \
-  sed 's/:/\//g; s/^/https\:\/\//g;' | \
+  grep -Eo '@.*\s' | \
+  sed 's/:/\//g; s/^@/https\:\/\//g;' |
   xargs open \
 "
 
-## jupyter
-alias jl='jupyter lab'
