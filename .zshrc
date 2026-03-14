@@ -1,9 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$PATH:/usr/local/bin:$HOME/bin:$HOME/anaconda3/bin:$HOME/google-cloud-sdk/bin
+export PATH='/Users/fireplacetv/.duckdb/cli/latest':$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="$PATH:$HOME/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/fireplacetv/.oh-my-zsh"
+
 
 #
 ZSH_DISABLE_COMPFIX="true"
@@ -125,6 +127,19 @@ alias dbtgp_='\
   which dbt
 '
 
+# local llm
+alias llm='cd ~/git/local-llm-chat && \
+  uv run main.py
+'
+
+# search the current repo for venv activate script and run it
+alias env="\
+  if whence -w deactivate | grep function > /dev/null; then \
+    deactivate; \
+  fi && \
+  source $(find $(git rev-parse --show-toplevel) -type f -path '*/bin/activate')
+"
+
 # zsh git plugin has its own glog, no need for this one
 alias glog1='git log -n 12 --format="%C(yellow)%h%C(auto)%d %s %C(green)%an %C(yellow)%ar"'
 
@@ -137,3 +152,4 @@ alias github="
   xargs open \
 "
 
+. "$HOME/.local/bin/env"

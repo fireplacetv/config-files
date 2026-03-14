@@ -11,6 +11,6 @@
 	autocorrect = 30
 [core]
 	pager = less -XRF
-	excludesfile = /Users/derricklow/.gitignore_global
+	excludesfile = /Users/fireplacetv/.gitignore_global
 [init]
 	defaultBranch = main
