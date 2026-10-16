@@ -1,0 +1,30 @@
+# .gitignore_global, modified from:
+# https://gist.github.com/subfuzion/db7f57fff2fb6998a16c
+# 
+# Save to ~/.gitignore_global and apply with
+#   git config --global core.excludesfile ~/.gitignore_global
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# WebStorm
+.idea/
+
+# vi
+*~
+*.swp
+
+# Virtualenv
+.venv/
+
+# General
+*.log
+
+# always .gitignore
+*.gitignore
+
+**/.claude/settings.local.json
+.claude

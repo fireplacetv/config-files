@@ -1,0 +1,40 @@
+" Display
+syntax on
+set number relativenumber
+set hlsearch
+set statusline=%F\ %=%Y\ (%l,%c)
+set laststatus=2
+set ruler
+
+" Navigation and File Management
+set path+=**
+set wildmenu
+
+" Tabbing
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set autoindent
+
+" use global clipboard
+set clipboard=unnamed
+
+" folding
+
+" autocmd reference: https://vimdoc.sourceforge.net/htmldoc/autocmd.html#BufNewFile
+
+" custom settings for python
+autocmd BufNewFile,BufRead */*.py set expandtab
+autocmd BufNewFile,BufRead */*.toml set expandtab
+
+" custom settings for dbt
+autocmd BufNewFile,BufRead */*.sql set foldmethod=marker foldmarker=(,) foldlevel=0
+autocmd BufNewFile,BufRead */*.sql set noexpandtab
+autocmd BufNewFile,BufRead */*.sql set nocursorcolumn
+autocmd BufNewFile,BufRead */*.yml set cursorcolumn
+autocmd BufNewFile,BufRead */*.yml set expandtab
+autocmd BufNewFile,BufRead */*.yml set nostartofline
+autocmd BufNewFile,BufRead */*.yml set foldmethod=indent foldlevel=0
+autocmd BufNewFile,BufRead */target/* set foldmethod=manual
+
+source $HOME/.vim/config/dbt.vimrc

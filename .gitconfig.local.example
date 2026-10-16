@@ -1,0 +1,17 @@
+# Machine-specific git settings that shouldn't be committed (identity, work
+# overrides, credentials helpers, etc.). ~/.gitconfig pulls this file in via
+# [include], so anything here is merged with the shared config.
+#
+# Setup:
+#   cp .gitconfig.local.example ~/.gitconfig.local
+#   then edit ~/.gitconfig.local with your own values
+#
+# Keep ~/.gitconfig.local out of this repo.
+
+[user]
+	name = Your Name
+	email = you@example.com
+
+# Optional: use a different identity for repos under a given directory
+# [includeIf "gitdir:~/git/work-*/"]
+# 	path = ~/.gitconfig.work

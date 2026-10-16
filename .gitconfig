@@ -1,0 +1,14 @@
+[include]
+	path = ~/.gitconfig.local
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[help]
+	autocorrect = 30
+[core]
+	pager = less -XRF
+	excludesfile = ~/.gitignore_global
+[init]
+	defaultBranch = main
