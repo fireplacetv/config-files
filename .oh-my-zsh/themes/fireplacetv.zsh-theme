@@ -16,65 +16,47 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
 
-bureau_git_branch () {
-  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  echo "${ref#refs/heads/}"
-}
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg_bold[magenta]%}✖%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑%{$reset_color%}"
 
-bureau_git_status() {
-  _STATUS=""
-
-  # check status of files
-  _INDEX=$(command git status --porcelain 2> /dev/null)
-  if [[ -n "$_INDEX" ]]; then
-    if $(echo "$_INDEX" | command grep -q '^[AMRD]. '); then
-      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STAGED"
-    fi
-    if $(echo "$_INDEX" | command grep -q '^.[MTD] '); then
-      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNSTAGED"
-    fi
-    if $(echo "$_INDEX" | command grep -q -E '^\?\? '); then
-      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
-    fi
-    if $(echo "$_INDEX" | command grep -q '^UU '); then
-      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNMERGED"
-    fi
-  else
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
-  fi
-
-  # check status of local repository
-  _INDEX=$(command git status --porcelain -b 2> /dev/null)
-  if $(echo "$_INDEX" | command grep -q '^## .*ahead'); then
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
-  fi
-  if $(echo "$_INDEX" | command grep -q '^## .*behind'); then
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
-  fi
-  if $(echo "$_INDEX" | command grep -q '^## .*diverged'); then
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
-  fi
-
-  if $(command git rev-parse --verify refs/stash &> /dev/null); then
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
-  fi
-
-  echo $_STATUS
-}
-
+# Builds the git line from a single `git status` call, parsed in-shell (no
+# subshells, no grep). Sets _GIT_PROMPT; empty when not in a repo.
 bureau_git_prompt () {
-  local _branch=$(bureau_git_branch)
-  local _status=$(bureau_git_status)
-  local _result=""
-  if [[ "${_branch}x" != "x" ]]; then
-    _result="$ZSH_THEME_GIT_PROMPT_PREFIX$_branch"
-    if [[ "${_status}x" != "x" ]]; then
-      _result="$_result $_status"
-    fi
-    _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX\n"
-  fi
-  echo $_result
+  _GIT_PROMPT=""
+  local _out
+  _out=$(command git status --porcelain=v2 --branch --show-stash 2> /dev/null) || return
+
+  local _line _branch _oid
+  local -i _ahead=0 _behind=0 _stash=0 _staged=0 _unstaged=0 _untracked=0 _unmerged=0
+  for _line in ${(f)_out}; do
+    case $_line in
+      ('# branch.oid '*)  _oid=${_line#\# branch.oid } ;;
+      ('# branch.head '*) _branch=${_line#\# branch.head } ;;
+      ('# branch.ab '*)
+        local _ab=(${=_line#\# branch.ab })
+        _ahead=${_ab[1]#+}; _behind=${_ab[2]#-} ;;
+      ('# stash '*)       _stash=1 ;;
+      ([12]' '*)
+        [[ ${_line[3]} != . ]] && _staged=1
+        [[ ${_line[4]} != . ]] && _unstaged=1 ;;
+      ('u '*)             _unmerged=1 ;;
+      ('? '*)             _untracked=1 ;;
+    esac
+  done
+
+  [[ $_branch == '(detached)' ]] && _branch=${_oid[1,7]}
+
+  local _status=""
+  (( _staged ))    && _status+=$ZSH_THEME_GIT_PROMPT_STAGED
+  (( _unstaged ))  && _status+=$ZSH_THEME_GIT_PROMPT_UNSTAGED
+  (( _untracked )) && _status+=$ZSH_THEME_GIT_PROMPT_UNTRACKED
+  (( _unmerged ))  && _status+=$ZSH_THEME_GIT_PROMPT_UNMERGED
+  (( _staged + _unstaged + _untracked + _unmerged )) || _status+=$ZSH_THEME_GIT_PROMPT_CLEAN
+  (( _ahead ))     && _status+=$ZSH_THEME_GIT_PROMPT_AHEAD
+  (( _behind ))    && _status+=$ZSH_THEME_GIT_PROMPT_BEHIND
+  (( _stash ))     && _status+=$ZSH_THEME_GIT_PROMPT_STASHED
+
+  _GIT_PROMPT="$ZSH_THEME_GIT_PROMPT_PREFIX$_branch $_status$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 
@@ -115,8 +97,8 @@ bureau_precmd () {
   # _1SPACES=`get_space $_1LEFT $_1RIGHT`
   # print -rP "$_1LEFT$_1SPACES$_1RIGHT"
   print -rP "$_1LEFT"
-  _GIT_PROMPT=$(bureau_git_prompt)
-  if [[ "${_GIT_PROMPT}x" != "x" ]]; then
+  bureau_git_prompt
+  if [[ -n $_GIT_PROMPT ]]; then
       print -rP "${_GIT_PROMPT}"
   fi
 }
@@ -125,7 +107,7 @@ setopt prompt_subst
 PROMPT='$_LIBERTY '
 
 # right side prompt from original theme. this is distracting.
-# RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
+# RPROMPT='$(nvm_prompt_info) $_GIT_PROMPT'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd bureau_precmd
